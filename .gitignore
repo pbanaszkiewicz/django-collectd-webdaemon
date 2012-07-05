@@ -8,6 +8,8 @@ build
 eggs
 parts
 bin
+include
+lib
 var
 sdist
 develop-eggs
@@ -25,3 +27,6 @@ pip-log.txt
 
 #Mr Developer
 .mr.developer.cfg
+
+#vim swap files
+*.swp
