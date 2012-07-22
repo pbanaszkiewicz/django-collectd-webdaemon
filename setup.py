@@ -13,7 +13,7 @@ setup(
     url="https://github.com/pbanaszkiewicz/django-collectd-webdaemon",
     packages=["collectd_webdaemon"],
     include_package_data=True,
-    install_requires=["requests>=0.9"],
+    install_requires=["requests>=0.9", "pygal>=0.10"],
     license="MIT",
     classifiers=[
         "License :: OSI Approved :: MIT License",
