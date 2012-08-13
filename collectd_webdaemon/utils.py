@@ -93,6 +93,14 @@ def metrics_tree(host):
     return tree
 
 
+def metrics_hosts(host):
+    """
+    Return list of hosts watched on specified metrics server.
+    """
+    hosts = requests.get(host + "/list_hosts", timeout=TIMEOUT)
+    return hosts
+
+
 def arbitrary_metrics(host, paths, start=None, end=None):
     """
     Return metrics for given set of full paths.
