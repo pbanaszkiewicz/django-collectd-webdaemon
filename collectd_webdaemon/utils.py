@@ -85,6 +85,21 @@ class XY_Timestamps(pygal.XY):
         self._y_labels = zip(map(self._format, y_pos), y_pos)
 
 
+def generate_chart(data):
+    """
+    Auxiliary function. The only non-proxy function in this module. Useful
+    separation for testing purposes.
+    """
+    chart = XY_Timestamps(chart_config)
+
+    for key, row in data.items():
+        for series in row:
+            chart.add(series["label"], series["data"])
+
+    content = base64.b64encode(chart.render())
+    return content
+
+
 def metrics_tree(host):
     """
     Return tree structure of collectd's data directory.
@@ -120,20 +135,10 @@ def arbitrary_metrics(host, paths, start=None, end=None):
             timeout=TIMEOUT)
 
     if response.status_code != 200:
-        # TODO: throw requests.RequestException?
         raise requests.exceptions.RequestException("Wrong status code.")
 
     results = response.json
-
-    # chart = pygal.XY(chart_config)
-    chart = XY_Timestamps(chart_config)
-
-    for key in results.keys():
-        for series in results[key]:
-            chart.add(series["label"], series["data"])
-
-    content = base64.b64encode(chart.render())
-    return content
+    return generate_chart(results)
 
 
 def similar_thresholds(daemon, host, plugin, type):
