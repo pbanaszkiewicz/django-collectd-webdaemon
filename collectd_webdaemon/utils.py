@@ -203,3 +203,12 @@ def delete_threshold(daemon, id):
     response = requests.delete("%s/threshold/%s" % (daemon, id),
         timeout=TIMEOUT)
     return response
+
+
+def generate_thresholds(daemon):
+    """
+    Requests daemon to save the thresholds from the DB and then to restart
+    collectd.
+    """
+    response = requests.get("%s/generate_threshold" % daemon, timeout=TIMEOUT)
+    return response
